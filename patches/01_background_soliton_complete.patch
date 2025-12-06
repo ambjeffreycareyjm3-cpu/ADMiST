@@ -1,0 +1,26 @@
+--- a/include/background.h
++++ b/include/background.h
+@@ -100,6 +100,7 @@ struct background {
+   double * Omega0_b; /**< array of Omega0_b at each time */
+   double * Omega0_cdm; /**< array of Omega0_cdm at each time */
+   double * Omega0_k; /**< array of Omega0_k at each time */
++  double * Omega0_soliton; /**< array of Omega0_soliton at each time (ADMST) */
+   
+   /** @name - quantities related to time */
+ 
+@@ -200,6 +201,15 @@ struct background {
+   double Omega0_dcdmdr; /**< today's density parameter of decay products of dcdm */
+   double Omega0_scf; /**< today's density parameter of scalar field (if there is one) */
+   double Omega0_ur; /**< today's density parameter of ultra-relativistic species / radiation (photons + massless neutrinos) */
++
++  /* ADMST Soliton Gas Parameters */
++  double Omega0_soliton; /**< today's soliton density parameter */
++  double Gamma_soliton; /**< soliton production/decay rate [1/Mpc] */
++  double cs2_soliton; /**< adiabatic sound speed squared */
++  double T_soliton_star; /**< characteristic temperature [GeV] */
++  double m_soliton_eff; /**< effective mass [GeV] */
++  double alpha_gamma_phi; /**< dimensionless soliton-photon coupling */
++  double xi_thermal; /**< thermalization efficiency 0-1 */
++  int index_bi_rho_soliton; /**< index for soliton density */
++  int index_bi_p_soliton; /**< index for soliton pressure */
+ };
