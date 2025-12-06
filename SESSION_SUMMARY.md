@@ -1,7 +1,7 @@
 # ADMST-CLASS Integration: Complete Session Summary
 
-**Date:** December 6, 2025  
-**Status:** Ready for Docker build and testing  
+**Date:** December 6, 2025
+**Status:** Ready for Docker build and testing
 **Repository:** https://github.com/ambjeffreycareyjm3-cpu/ADMiST
 
 ---
@@ -368,7 +368,7 @@ $$\tau_s = \int_0^z n_s(z') \sigma_s(z') \frac{c}{H(z')} dz'$$
    ```bash
    ./tools/docker_build_and_test.sh
    ```
-   
+
 2. **Test ADMST patches:**
    ```bash
    docker-compose run --rm admst-class ./tools/build_test_admst.sh
@@ -379,7 +379,7 @@ $$\tau_s = \int_0^z n_s(z') \sigma_s(z') \frac{c}{H(z')} dz'$$
 ### Short-term (1 week)
 4. **Obtain Planck data:** Download Planck 2018 likelihoods
    - See: https://github.com/Cobaya/cobaya/wiki/Likelihoods-and-external-codes
-   
+
 5. **Run test MCMC:** Quick run with 1000 samples
    ```bash
    python tools/run_mcmc.py examples/cobaya_admst_planck.yaml
@@ -479,12 +479,12 @@ A: Publish chains to Zenodo, include code on GitHub, share plots + corner plots.
 
 You now have a **complete, reproducible, publication-ready framework** for ADMST-SCBC cosmology:
 
-✓ Working Python module  
-✓ Unit tests + CI/CD  
-✓ Physics patches for CLASS  
-✓ Docker for reproducibility  
-✓ MCMC scaffolding  
-✓ Comprehensive documentation  
+✓ Working Python module
+✓ Unit tests + CI/CD
+✓ Physics patches for CLASS
+✓ Docker for reproducibility
+✓ MCMC scaffolding
+✓ Comprehensive documentation
 
 **Next action:** Run `./tools/docker_build_and_test.sh` to build the Docker image and verify the full stack.
 

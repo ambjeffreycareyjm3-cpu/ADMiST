@@ -10,7 +10,7 @@
    short has_ur; /**< do we have ultra-relativistic species / radiation? */
 @@ -300,6 +301,15 @@ struct perturbations {
    double * pvecthermo; /**< pointer to thermo vector */
-   
+
    /** @name - technical parameters */
 +
 +  /* ADMST Soliton perturbations */
@@ -21,4 +21,3 @@
 +  int index_pt_theta_soliton; /**< index for soliton velocity divergence */
 +  int index_pt_shear_soliton; /**< index for soliton anisotropic stress */
  };
- 

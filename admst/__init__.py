@@ -6,9 +6,9 @@ meant as a scaffold you can extend.
 """
 
 try:
-	# Prefer full implementation if present
-	from .cosmo import SCBCParameters, SCBCCosmology  # type: ignore
+    # Prefer full implementation if present
+    from .cosmo import SCBCCosmology, SCBCParameters  # type: ignore
 except Exception:
-	from .cosmo_min import SCBCParameters, SCBCCosmology  # fallback
+    from .cosmo_min import SCBCCosmology, SCBCParameters  # fallback
 
 __all__ = ["SCBCParameters", "SCBCCosmology"]

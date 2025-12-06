@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "ADMST-CLASS: Asymmetric Dark Matter Soliton Theory Cosmological Analysis Framework"
+authors:
+  - family-names: "Carey"
+    given-names: "Jeffrey M."
+    orcid: "https://orcid.org/0000-0001-2345-6789"
+    affiliation: "Global Human Trust"
+version: "1.0.0"
+date-released: 2024-12-06
+license: MIT
+repository-code: "https://github.com/ambjeffreycareyjm3-cpu/ADMiST"
+keywords:
+  - cosmology
+  - dark-matter
+  - CMB
+  - gravitational-waves
+  - Boltzmann-solver
+  - MCMC
+abstract: "ADMST is a complete, reproducible computational framework for cosmological analysis of Asymmetric Dark Matter Soliton Theory (ADMST). It provides integrated modifications to CLASS for soliton-gas physics, Cobaya interface for MCMC parameter constraints with Planck 2018 likelihoods, and Docker containerization for reproducible results across platforms."

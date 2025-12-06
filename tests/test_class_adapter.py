@@ -1,6 +1,6 @@
 import numpy as np
 
-from admst.class_adapter import DummyClassAdapter, ClassAdapter
+from admst.class_adapter import ClassAdapter, DummyClassAdapter
 
 
 def test_dummy_adapter_matter_power_shape():

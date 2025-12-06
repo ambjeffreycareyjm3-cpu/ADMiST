@@ -7,7 +7,7 @@ index abc1234..def5678 100644
    double * Omega0_cdm; /**< array of Omega0_cdm at each time */
    double * Omega0_k; /**< array of Omega0_k at each time */
  +  double * Omega0_soliton; /**< array of Omega0_soliton at each time (ADMST) */
-    
+
    /** @name - quantities related to time */
  @@ -200,6 +201,15 @@ struct background {
    double Omega0_dcdmdr; /**< today's density parameter of decay products of dcdm */

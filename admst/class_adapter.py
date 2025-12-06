@@ -14,6 +14,7 @@ import numpy as np
 
 try:
     from classy import Class  # type: ignore
+
     HAS_CLASS = True
 except Exception:
     HAS_CLASS = False
@@ -60,7 +61,9 @@ class ClassAdapter:
         log_k_grid = np.log(k_grid)
         log_Pk_grid = np.log(Pk_grid)
         log_k = np.log(k)
-        log_Pk = np.interp(log_k, log_k_grid, log_Pk_grid, left=log_Pk_grid[0], right=log_Pk_grid[-1])
+        log_Pk = np.interp(
+            log_k, log_k_grid, log_Pk_grid, left=log_Pk_grid[0], right=log_Pk_grid[-1]
+        )
         return np.exp(log_Pk)
 
     def get_Cl_TT(self, ell: Iterable[int]) -> np.ndarray:
@@ -68,7 +71,12 @@ class ClassAdapter:
         if self.backend == "classy":
             # classy returns scaled C_l, but usage varies — this is a simple
             # attempt to fetch TT from the transfer function outputs.
-            cls = np.array([self.cls.lensed_cl(l) if hasattr(self.cls, 'lensed_cl') else 0.0 for l in ell])
+            cls = np.array(
+                [
+                    self.cls.lensed_cl(l) if hasattr(self.cls, "lensed_cl") else 0.0
+                    for l in ell
+                ]
+            )
             return cls
         # dummy TT: simple power-law-like falloff for integration tests
         ell = ell.astype(float)

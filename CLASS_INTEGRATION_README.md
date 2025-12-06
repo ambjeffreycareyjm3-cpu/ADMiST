@@ -147,7 +147,7 @@ from getdist import plots, MCSamples
 
 # Load chains (adjust path to your output)
 samples = np.loadtxt("chains/admst_planck_1.txt")
-names = ['Omega_b', 'Omega_cdm', 'h', 'n_s', 'A_s', 'tau_reio', 
+names = ['Omega_b', 'Omega_cdm', 'h', 'n_s', 'A_s', 'tau_reio',
          'Omega_soliton', 'Gamma_soliton', 'cs2_soliton']
 
 gd = MCSamples(samples=samples[:, :-1], names=names)

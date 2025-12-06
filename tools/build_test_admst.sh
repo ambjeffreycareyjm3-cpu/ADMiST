@@ -28,12 +28,12 @@ mkdir -p "$OUTPUT_DIR"
 # ==================== Step 1: Clone & Patch CLASS ====================
 if [ "$SKIP_BUILD" != "true" ]; then
     echo "Step 1: Setting up CLASS repository..."
-    
+
     if [ ! -d "$CLASS_DIR" ]; then
         log_warn "Cloning CLASS repository from $CLASS_REPO"
         mkdir -p "$(dirname "$CLASS_DIR")"
         git clone "$CLASS_REPO" "$CLASS_DIR" 2>&1 | grep -E "Cloning|Resolving|Receiving|done"
-        
+
         cd "$CLASS_DIR"
         log_warn "Checking out $CLASS_VERSION..."
         git checkout "$CLASS_VERSION" 2>&1 | head -5
@@ -42,17 +42,17 @@ if [ "$SKIP_BUILD" != "true" ]; then
     else
         log_warn "CLASS directory already exists at $CLASS_DIR"
     fi
-    
+
     # Apply patches
     echo "Applying ADMST patches..."
     cd "$CLASS_DIR"
-    
+
     patch_count=0
     for patch in ../../$PATCH_DIR/*.patch; do
         if [ -f "$patch" ]; then
             patch_name=$(basename "$patch")
             echo "  - Attempting to apply $patch_name..."
-            
+
             # Check if patch can be applied (dry-run)
             if patch -p1 --dry-run < "$patch" > /dev/null 2>&1; then
                 patch -p1 < "$patch" > /dev/null 2>&1
@@ -65,18 +65,18 @@ if [ "$SKIP_BUILD" != "true" ]; then
             fi
         fi
     done
-    
+
     if [ $patch_count -eq 0 ]; then
         log_warn "No patches were applied - CLASS structure may differ from v3.2.1"
         log_warn "See patches/ directory for manual edits needed"
     else
         log_success "Applied $patch_count patches"
     fi
-    
+
     # Build CLASS
     echo "Building modified CLASS..."
     make distclean > /dev/null 2>&1 || true
-    
+
     if make -j$(nproc) 2>&1 | tail -20; then
         log_success "CLASS build completed"
     else
@@ -84,7 +84,7 @@ if [ "$SKIP_BUILD" != "true" ]; then
         cd - > /dev/null
         exit 1
     fi
-    
+
     cd - > /dev/null
 fi
 
@@ -157,7 +157,7 @@ if [ "$SKIP_BUILD" != "true" ]; then
         LCDM_SUCCESS=0
     fi
     cd - > /dev/null
-    
+
     # Test ADMST minimal
     echo "  Testing ADMST with minimal parameters..."
     if cd "$CLASS_DIR" && ./class ../$OUTPUT_DIR/test_admst_minimal.ini 2>&1 | tail -5; then
@@ -185,7 +185,7 @@ fi
 
 if [ -f "$OUTPUT_DIR/test_admst_minimal_scalCls.dat" ]; then
     log_success "Found ADMST output: test_admst_minimal_scalCls.dat"
-    
+
     # Quick Python comparison (if numpy available)
     python3 << 'PYSCRIPT' 2>/dev/null || log_warn "Python analysis skipped (numpy not available)"
 import numpy as np
@@ -194,16 +194,16 @@ import sys
 try:
     lcdm = np.loadtxt('output/test_lcdm_scalCls.dat', skiprows=1, usecols=(0,1))
     admst = np.loadtxt('output/test_admst_minimal_scalCls.dat', skiprows=1, usecols=(0,1))
-    
+
     # Interpolate to common ell grid
     lmax = min(len(lcdm), len(admst))
     diff_rel = np.abs((admst[:lmax,1] - lcdm[:lmax,1]) / (lcdm[:lmax,1] + 1e-30))
-    
+
     print(f"\nSpectrum Comparison:")
     print(f"  Max relative difference: {np.max(diff_rel)*100:.3f}%")
     print(f"  Mean relative difference: {np.mean(diff_rel)*100:.4f}%")
     print(f"  Points compared: {lmax}")
-    
+
 except Exception as e:
     print(f"Analysis error: {e}")
 PYSCRIPT

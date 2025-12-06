@@ -5,19 +5,19 @@ index abc1234..def5678 100644
 @@ -800,6 +800,22 @@ int Thermodynamics::thermodynamics_ionization() {
      }
    }
- 
+
  +  /* ADMST: Modify visibility function for soliton-photon coupling */
  +  if (pth->has_soliton_coupling == _TRUE_) {
  +    for (index=0; index<pth->tt_size; index++) {
- +      
+ +
  +      double z = pth->z_table[index];
  +      double a = 1./(1.+z);
- +      
+ +
  +      /* Enhanced optical depth from soliton scattering */
- +      double kappa_soliton = pth->alpha_gamma_phi * 
+ +      double kappa_soliton = pth->alpha_gamma_phi *
  +                            pow(1.+z, pth->soliton_coupling_power) *
  +                            exp(-pow((1.+z)/pth->z_soliton_peak, 2));
- +      
+ +
  +      pth->kappa_table[index] += kappa_soliton;
  +    }
  +  }

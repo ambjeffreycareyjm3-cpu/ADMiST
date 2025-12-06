@@ -1,11 +1,12 @@
 import numpy as np
-from admst import SCBCParameters, SCBCCosmology
+
+from admst import SCBCCosmology, SCBCParameters
 
 
 def test_imports_and_params():
     params = SCBCParameters()
     cosmo = SCBCCosmology(params)
-    assert hasattr(cosmo, 'params')
+    assert hasattr(cosmo, "params")
     assert params.h > 0
 
 
@@ -40,8 +41,8 @@ def test_gw_spectrum_nonnegative():
 def test_lab_scaling_structure():
     cosmo = SCBCCosmology()
     lab = cosmo.lab_scaling_predictions()
-    assert 'f_cosmic_pred' in lab
-    assert 'lab_peaks' in lab and isinstance(lab['lab_peaks'], dict)
+    assert "f_cosmic_pred" in lab
+    assert "lab_peaks" in lab and isinstance(lab["lab_peaks"], dict)
 
 
 def test_cmb_modulation_amplitude():

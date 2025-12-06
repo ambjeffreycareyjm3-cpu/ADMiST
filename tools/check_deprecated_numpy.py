@@ -27,8 +27,9 @@ DEPRECATED_PATTERNS = [
 
 compiled = [re.compile(p) for p in DEPRECATED_PATTERNS]
 
+
 def scan_file(path: Path):
-    text = path.read_text(encoding='utf8', errors='ignore')
+    text = path.read_text(encoding="utf8", errors="ignore")
     hits = []
     for i, line in enumerate(text.splitlines(), start=1):
         for pat in compiled:
@@ -36,8 +37,11 @@ def scan_file(path: Path):
                 hits.append((i, line.strip()))
     return hits
 
+
 def main():
-    py_files = [p for p in ROOT.rglob('*.py') if 'venv' not in p.parts and '.git' not in p.parts]
+    py_files = [
+        p for p in ROOT.rglob("*.py") if "venv" not in p.parts and ".git" not in p.parts
+    ]
     # Don't scan this checker script itself
     this_file = Path(__file__).resolve()
     py_files = [p for p in py_files if p.resolve() != this_file]
@@ -48,16 +52,19 @@ def main():
             problems[p.relative_to(ROOT)] = hits
 
     if problems:
-        print('\nDeprecated NumPy API usage detected:')
+        print("\nDeprecated NumPy API usage detected:")
         for f, hits in problems.items():
-            print(f'\n  {f}:')
+            print(f"\n  {f}:")
             for lineno, line in hits:
-                print(f'    {lineno:4d}: {line}')
-        print('\nPlease replace deprecated APIs (e.g. use np.trapezoid instead of np.trapz).')
+                print(f"    {lineno:4d}: {line}")
+        print(
+            "\nPlease replace deprecated APIs (e.g. use np.trapezoid instead of np.trapz)."
+        )
         return 2
 
-    print('No deprecated NumPy API usage found.')
+    print("No deprecated NumPy API usage found.")
     return 0
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     raise SystemExit(main())
