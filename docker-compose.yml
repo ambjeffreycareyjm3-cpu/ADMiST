@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  admst-class:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: admst-class:latest
+    container_name: admst-class-dev
+    
+    # Mount directories for live editing
+    volumes:
+      - ./admst:/workspace/admst:rw
+      - ./tools:/workspace/tools:rw
+      - ./patches:/workspace/patches:rw
+      - ./examples:/workspace/examples:rw
+      - ./output:/workspace/output:rw
+      - ./chains:/workspace/chains:rw
+      - ./data:/workspace/data:rw
+      - ./external:/workspace/external:rw
+    
+    working_dir: /workspace
+    
+    # Interactive shell
+    stdin_open: true
+    tty: true
+    
+    # Port mappings
+    ports:
+      - "8888:8888"  # Jupyter notebook
+      - "8080:8080"  # Optional web interface
+    
+    # Environment variables
+    environment:
+      - OMP_NUM_THREADS=4
+      - PYTHONPATH=/workspace:$PYTHONPATH
+      - JUPYTER_ENABLE_LAB=yes
+    
+    # Resource limits (adjust as needed)
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 16G
+        reservations:
+          cpus: '4'
+          memory: 8G
+    
+    # Keep container running
+    command: /bin/bash
+
+  # Optional: separate service for long-running MCMC jobs
+  admst-mcmc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: admst-class:latest
+    container_name: admst-class-mcmc
+    
+    volumes:
+      - ./admst:/workspace/admst:ro
+      - ./tools:/workspace/tools:ro
+      - ./patches:/workspace/patches:ro
+      - ./examples:/workspace/examples:ro
+      - ./output:/workspace/output:rw
+      - ./chains:/workspace/chains:rw
+      - ./data:/workspace/data:ro
+    
+    working_dir: /workspace
+    
+    environment:
+      - OMP_NUM_THREADS=4
+      - PYTHONPATH=/workspace:$PYTHONPATH
+    
+    # Run MCMC and exit (override in command line if needed)
+    command: tail -f /dev/null
+    
+    profiles:
+      - mcmc  # Only run when explicitly requested: docker-compose --profile mcmc up
+
+volumes:
+  chains:
+    driver: local
+  output:
+    driver: local
