@@ -1,0 +1,55 @@
+theory:
+  classy:
+    path: "../external/class"  # Path to modified CLASS
+    extra_args:
+      # ADMST-specific parameters
+      Omega_soliton: 0.01
+      Gamma_soliton: 0.1
+      cs2_soliton: 0.333
+      T_soliton_star: 1.24e9  # GeV in natural units
+      alpha_gamma_phi: 1e-5
+      has_soliton: yes
+      has_soliton_coupling: yes
+
+params:
+  # Cosmological parameters + ADMST parameters
+  Omega_b:    0.022
+  Omega_cdm:  0.12
+  h:          0.67
+  n_s:        0.96
+  A_s:        2.1e-9
+  tau_reio:   0.054
+
+  # ADMST parameters with priors
+  Omega_soliton:
+    prior:
+      min: 0.001
+      max: 0.1
+    ref: 0.01
+    proposal: 0.001
+  Gamma_soliton:
+    prior:
+      min: 0.01
+      max: 1.0
+    ref: 0.1
+  cs2_soliton:
+    prior:
+      min: 0.1
+      max: 0.5
+    ref: 0.333
+
+likelihood:
+  # Planck 2018 likelihoods (placeholders; user must provide data/clik)
+  planck_2018_lowl.TT: {}
+  planck_2018_lowl.EE: {}
+  planck_2018_highl_plik.TTTEEE: {}
+  planck_2018_lensing.clik: {}
+
+sampler:
+  mcmc:
+    chains: 4
+    Rminus1_stop: 0.01
+    Rminus1_cl_stop: 0.03
+    max_samples: 500000
+
+output: chains/admst_planck

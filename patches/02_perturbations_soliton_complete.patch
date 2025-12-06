@@ -1,0 +1,23 @@
+--- a/include/perturbations.h
++++ b/include/perturbations.h
+@@ -150,6 +150,7 @@ struct perturbations {
+   short has_cdm; /**< do we have cold dark matter? */
+   short has_dcdm; /**< do we have decaying cold dark matter? */
+   short has_dr; /**< do we have decay radiation? */
++  short has_soliton; /**< do we have soliton gas? (ADMST) */
+   short has_fld; /**< do we have fluid (a.k.a. generic dark energy)? */
+   short has_scf; /**< do we have scalar field (a.k.a. quintessence)? */
+   short has_ur; /**< do we have ultra-relativistic species / radiation? */
+@@ -300,6 +301,15 @@ struct perturbations {
+   double * pvecthermo; /**< pointer to thermo vector */
+
+   /** @name - technical parameters */
++
++  /* ADMST Soliton perturbations */
++  double * source_soliton; /**< k-dependent soliton source term array */
++  double k_J_soliton; /**< Jeans scale [Mpc^-1] */
++  double coupling_soliton_photon; /**< dimensionless soliton-photon coupling */
++  int index_pt_delta_soliton; /**< index for soliton density contrast */
++  int index_pt_theta_soliton; /**< index for soliton velocity divergence */
++  int index_pt_shear_soliton; /**< index for soliton anisotropic stress */
+ };

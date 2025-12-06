@@ -1,0 +1,26 @@
+diff --git a/include/perturbations.h b/include/perturbations.h
+index abc1234..def5678 100644
+--- a/include/perturbations.h
++++ b/include/perturbations.h
+@@ -150,6 +150,7 @@ struct perturbations {
+   short has_cdm; /**< do we have cold dark matter? */
+   short has_dcdm; /**< do we have decaying cold dark matter? */
+   short has_dr; /**< do we have decay radiation? */
+ +  short has_soliton; /**< do we have soliton gas? (ADMST) */
+   short has_fld; /**< do we have fluid (a.k.a. generic dark energy)? */
+   short has_scf; /**< do we have scalar field (a.k.a. quintessence)? */
+   short has_ur; /**< do we have ultra-relativistic species / radiation? */
+ @@ -300,6 +301,15 @@ struct perturbations {
+   double * pvecthermo; /**< pointer to thermo vector */
+
+   /** @name - technical parameters */
+ +
+ +  /* ADMST Soliton Source Terms */
+ +  double * source_soliton; /**< soliton source term array */
+ +  double alpha_gamma_phi; /**< photon-soliton coupling */
+ +  double cs2_soliton_kdependent; /**< k-dependent sound speed correction */
+ +
+ +  /* Soliton transfer functions */
+ +  double * theta_soliton; /**< soliton temperature perturbation */
+ +  double * delta_soliton; /**< soliton density contrast */
+ };

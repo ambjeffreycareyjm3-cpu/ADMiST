@@ -1,0 +1,19 @@
+--- a/include/thermodynamics.h
++++ b/include/thermodynamics.h
+@@ -100,6 +100,17 @@ struct thermodynamics {
+   double * kappa_table; /**< table of optical depth */
+   double * dkappa_table; /**< table of d(kappa)/dtau */
+
++  /* ADMST Soliton-Photon coupling */
++  short has_soliton_coupling; /**< is soliton-photon coupling enabled? */
++  double alpha_gamma_phi; /**< dimensionless soliton-photon coupling */
++  double z_soliton_peak; /**< redshift of peak coupling strength */
++  double soliton_coupling_power; /**< power-law index for z-dependence */
++  double tau_soliton_total; /**< total optical depth contribution from solitons */
++
++  /* Enhanced scattering rate tables */
++  double * kappa_soliton_table; /**< additional optical depth from soliton scattering */
++  double * dkappa_soliton_table; /**< derivative of soliton contribution to kappa */
++
+   /** @name - other data */
+ };

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Local pre-commit hook to run the deprecated-NumPy API checker.
+# Enable locally with: git config core.hooksPath .githooks
+
+set -euo pipefail
+
+echo "Running deprecated NumPy API check..."
+python3 tools/check_deprecated_numpy.py
+
+echo "Deprecated NumPy API check passed. Proceeding with commit."
+
+exit 0
